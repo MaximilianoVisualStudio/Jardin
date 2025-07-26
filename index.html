@@ -11,9 +11,9 @@
     <script type="importmap">
 {
   "imports": {
-    "react/": "https://esm.sh/react@^19.1.0/",
-    "react": "https://esm.sh/react@^19.1.0",
-    "react-dom/": "https://esm.sh/react-dom@^19.1.0/"
+    "react": "https://esm.sh/react@18.3.1",
+    "react-dom/client": "https://esm.sh/react-dom@18.3.1/client",
+    "react/": "https://esm.sh/react@^19.1.0/"
   }
 }
 </script>
@@ -21,10 +21,27 @@
   <body class="bg-slate-900">
     <div id="root"></div>
     <!-- 
-      2. Cambiar el tipo de script a "text/babel" y añadir presets.
-         Esto le dice a Babel que encuentre este script, lo transpile usando las
-         configuraciones de React y TypeScript, y luego lo ejecute como un módulo.
+      2. Mover el script de arranque en línea para evitar errores de tipo MIME.
+         Esto soluciona el problema de que el servidor no reconozca los archivos .tsx.
+         Babel ahora transpilará este código y gestionará la importación
+         de otros componentes como App.tsx.
     -->
-    <script type="text/babel" data-presets="react,typescript" data-type="module" src="./index.tsx"></script>
+    <script type="text/babel" data-presets="react,typescript" data-type="module">
+      import React from 'react';
+      import ReactDOM from 'react-dom/client';
+      import App from './App.tsx';
+
+      const rootElement = document.getElementById('root');
+      if (!rootElement) {
+        throw new Error("Could not find root element to mount to");
+      }
+
+      const root = ReactDOM.createRoot(rootElement);
+      root.render(
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      );
+    </script>
   </body>
 </html>
