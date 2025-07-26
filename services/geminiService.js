@@ -5,14 +5,14 @@ const STEM_COLOR = '#6ab04c';
 /**
  * Generates a random number within a specified range.
  */
-function random(min: number, max: number): number {
+function random(min, max) {
   return Math.random() * (max - min) + min;
 }
 
 /**
  * Creates SVG for ellipse-shaped petals.
  */
-function createEllipsePetals(numPetals: number, petalLength: number, petalWidth: number, centerSize: number): string {
+function createEllipsePetals(numPetals, petalLength, petalWidth, centerSize) {
   let petalsSvg = '';
   const angleStep = 360 / numPetals;
   for (let i = 0; i < numPetals; i++) {
@@ -25,7 +25,7 @@ function createEllipsePetals(numPetals: number, petalLength: number, petalWidth:
 /**
  * Creates SVG for path-based, pointed petals.
  */
-function createPointedPetals(numPetals: number, petalLength: number, petalWidth: number, centerSize: number): string {
+function createPointedPetals(numPetals, petalLength, petalWidth, centerSize) {
     let petalsSvg = '';
     const angleStep = 360 / numPetals;
     for (let i = 0; i < numPetals; i++) {
@@ -93,3 +93,4 @@ export function generateFlowerData() {
 
   return { svg, color: petalColor, size };
 }
+
