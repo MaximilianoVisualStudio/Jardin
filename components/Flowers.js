@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import type { FlowerType } from '../types.js';
 
-interface FlowerProps {
-  flower: FlowerType;
-}
-
-const Flower: React.FC<FlowerProps> = ({ flower }) => {
+const Flower = ({ flower }) => {
   const [isNew, setIsNew] = useState(true);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -26,7 +21,7 @@ const Flower: React.FC<FlowerProps> = ({ flower }) => {
   }, []);
 
   // Dynamically set styles for animations and the glow effect
-  const style: React.CSSProperties = {
+  const style = {
     color: flower.color,
     transition: 'opacity 1s ease-out, transform 1s ease-out, filter 1.5s ease-in-out',
     opacity: isMounted ? 1 : 0,
