@@ -20,7 +20,7 @@
 
     <style>
       html {
-        background-color: #0f172a; /* fallback */
+        background-color: #0f172a;
       }
 
       /* Fondo primavera */
@@ -29,17 +29,18 @@
         overflow: hidden;
       }
 
+      /* Sol más luminoso */
       body.spring::before {
         content: "";
         position: absolute;
-        top: -50px;
+        top: -60px;
         left: 50%;
-        width: 200px;
-        height: 200px;
-        margin-left: -100px;
+        width: 220px;
+        height: 220px;
+        margin-left: -110px;
         border-radius: 50%;
-        background: #ffe066;
-        box-shadow: 0 0 100px 40px #ffd43b88;
+        background: radial-gradient(circle at center, #fff8b0 0%, #ffd43b 60%, #ff9f1c 100%);
+        box-shadow: 0 0 120px 50px #ffd43b88;
         animation: sunGlow 6s ease-in-out infinite alternate;
         z-index: 0;
       }
@@ -53,18 +54,19 @@
         }
       }
 
+      /* Pasto más vivo */
       body.spring::after {
         content: "";
         position: absolute;
         bottom: 0;
         left: 0;
         width: 100%;
-        height: 120px;
-        background: linear-gradient(to top, #166534, transparent);
+        height: 140px;
+        background: linear-gradient(to top, #22c55e 40%, #4ade80 80%, transparent);
         z-index: 1;
       }
 
-      /* Pétalos flotantes realistas */
+      /* Pétalos flotantes */
       .petal {
         position: absolute;
         width: 24px;
@@ -133,38 +135,75 @@
         return petalsSvg;
       };
 
+      // Nueva rosa
+      const createRose = (size) => {
+        const numLayers = 4;
+        const petals = [];
+        for (let i = 0; i < numLayers; i++) {
+          const radius = size * (0.15 + i * 0.1);
+          const opacity = 0.9 - i * 0.18;
+          petals.push(
+            `<circle cx="0" cy="0" r="${radius}" fill="#e11d48" opacity="${opacity}" />`
+          );
+        }
+
+        const centerSize = size * 0.08;
+        const stemHeight = size * 0.6;
+        const stemWidth = size * 0.03;
+        const leaves = `
+          <path d="M0 ${size*0.7} C -${size*0.2} ${size*0.6}, -${size*0.3} ${size*0.9}, 0 ${size}" fill="#16a34a" opacity="0.8"/>
+          <path d="M0 ${size*0.7} C ${size*0.2} ${size*0.6}, ${size*0.3} ${size*0.9}, 0 ${size}" fill="#16a34a" opacity="0.8"/>
+        `;
+
+        return `
+          <g transform="translate(${size/2}, ${size/2})">
+            ${petals.join("")}
+            <circle cx="0" cy="0" r="${centerSize}" fill="#9f1239" />
+            <line x1="0" y1="${centerSize}" x2="0" y2="${stemHeight}" stroke="#15803d" stroke-width="${stemWidth}" />
+            ${leaves}
+          </g>
+        `;
+      };
+
       const petalFunctions = [createEllipsePetals, createPointedPetals];
+      let flowerCounter = 0;
 
       const generateFlowerData = () => {
-        const petalColor = PETAL_COLORS[Math.floor(random(0, PETAL_COLORS.length))];
-        const centerColor = CENTER_COLORS[Math.floor(random(0, CENTER_COLORS.length))];
-        const size = random(80, 160);
-        const numPetals = Math.floor(random(5, 12));
-        const petalLength = size * random(0.25, 0.4);
-        const petalWidth = size * random(0.1, 0.22);
-        const centerSize = size * random(0.1, 0.2);
-        const stemHeight = size * random(0.4, 0.6);
-        const stemSway = size * random(-0.15, 0.15);
-        const stemWidth = size * random(0.02, 0.04);
-        const petalColorOpacity = random(0.7, 1.0);
-        const selectedPetalFunc =
-          petalFunctions[Math.floor(random(0, petalFunctions.length))];
-        const petalsSvg = selectedPetalFunc(numPetals, petalLength, petalWidth, centerSize);
-        const viewBoxSize = size;
-        const viewboxCenter = viewBoxSize / 2;
-        const svgContent = `
-          <g transform="translate(${viewboxCenter}, ${viewboxCenter * 0.8})" style="transform-origin: center bottom;">
-            <g fill="${petalColor}" opacity="${petalColorOpacity}">${petalsSvg}</g>
-            <circle cx="0" cy="0" r="${centerSize / 2}" fill="${centerColor}" />
-          </g>
-          <path d="M${viewboxCenter} ${viewBoxSize} Q${viewboxCenter + stemSway} ${
-          viewBoxSize - stemHeight / 2
-        } ${viewboxCenter} ${
-          viewBoxSize - stemHeight
-        }" stroke="${STEM_COLOR}" stroke-width="${stemWidth}" fill="none" stroke-linecap="round"/>
-        `;
-        const svg = `<svg width="100%" height="100%" viewBox="0 0 ${viewBoxSize} ${viewBoxSize}" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" style="overflow: visible;">${svgContent}</svg>`;
-        return { svg, color: petalColor, size };
+        flowerCounter++;
+        const size = random(100, 160);
+
+        let svgContent;
+        if (flowerCounter % 2 === 0) {
+          // Cada 2 flores → Rosa
+          svgContent = createRose(size);
+        } else {
+          // Flores normales
+          const petalColor = PETAL_COLORS[Math.floor(random(0, PETAL_COLORS.length))];
+          const centerColor = CENTER_COLORS[Math.floor(random(0, CENTER_COLORS.length))];
+          const numPetals = Math.floor(random(5, 12));
+          const petalLength = size * random(0.25, 0.4);
+          const petalWidth = size * random(0.1, 0.22);
+          const centerSize = size * random(0.1, 0.2);
+          const stemHeight = size * random(0.4, 0.6);
+          const stemSway = size * random(-0.15, 0.15);
+          const stemWidth = size * random(0.02, 0.04);
+          const petalColorOpacity = random(0.7, 1.0);
+          const selectedPetalFunc =
+            petalFunctions[Math.floor(random(0, petalFunctions.length))];
+          const petalsSvg = selectedPetalFunc(numPetals, petalLength, petalWidth, centerSize);
+
+          svgContent = `
+            <g transform="translate(${size/2}, ${size/2 * 0.8})" style="transform-origin: center bottom;">
+              <g fill="${petalColor}" opacity="${petalColorOpacity}">${petalsSvg}</g>
+              <circle cx="0" cy="0" r="${centerSize / 2}" fill="${centerColor}" />
+            </g>
+            <path d="M${size/2} ${size} Q${size/2 + stemSway} ${size - stemHeight / 2} ${size/2} ${size - stemHeight}"
+              stroke="${STEM_COLOR}" stroke-width="${stemWidth}" fill="none" stroke-linecap="round"/>
+          `;
+        }
+
+        const svg = `<svg width="100%" height="100%" viewBox="0 0 ${size} ${size}" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" style="overflow: visible;">${svgContent}</svg>`;
+        return { svg, color: "#e11d48", size };
       };
 
       const Flower = ({ flower }) => {
@@ -218,7 +257,6 @@
           setFlowers((prevFlowers) => [...prevFlowers, newFlower]);
         }, []);
 
-        // Generar pétalos flotando con SVG más detallado
         const petalSVG = (color) => `
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 2 C15 5, 20 10, 12 22 C4 10, 9 5, 12 2Z" fill="${color}"/>
@@ -247,7 +285,7 @@
                 Jardín Zen Digital
               </h1>
               <p className="mt-4 text-lg text-slate-800 font-medium">
-                Haz clic en 'Crecer' para ver nacer una flor casi tan linda como tú.
+                Haz clic en 'Crecer' para ver nacer una flor casi tan linda como vos.
               </p>
               <p className="mt-6 text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-green-600 via-pink-600 to-yellow-500 animate-pulse">
                 🌸 ¡Feliz Día de la Primavera, mi amor! 🌸
@@ -299,4 +337,4 @@
       );
     </script>
   </body>
-</html>
+  </html>
