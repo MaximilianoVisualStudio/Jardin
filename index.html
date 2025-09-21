@@ -20,18 +20,62 @@
 
     <style>
       html {
-        background-color: #0f172a; /* bg-slate-900 */
+        background-color: #0f172a; /* fallback */
       }
 
-      /* Pétalos flotando */
+      /* Fondo primavera */
+      body.spring {
+        background: linear-gradient(to top, #4ade80 5%, #87ceeb 100%);
+        overflow: hidden;
+      }
+
+      body.spring::before {
+        content: "";
+        position: absolute;
+        top: -50px;
+        left: 50%;
+        width: 200px;
+        height: 200px;
+        margin-left: -100px;
+        border-radius: 50%;
+        background: #ffe066;
+        box-shadow: 0 0 100px 40px #ffd43b88;
+        animation: sunGlow 6s ease-in-out infinite alternate;
+        z-index: 0;
+      }
+
+      @keyframes sunGlow {
+        from {
+          transform: scale(1);
+        }
+        to {
+          transform: scale(1.1);
+        }
+      }
+
+      body.spring::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 120px;
+        background: linear-gradient(to top, #166534, transparent);
+        z-index: 1;
+      }
+
+      /* Pétalos flotantes realistas */
       .petal {
         position: absolute;
-        width: 12px;
-        height: 18px;
-        background: radial-gradient(circle at center, #ff6b6b 40%, transparent 70%);
-        border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-        opacity: 0.8;
+        width: 24px;
+        height: 24px;
+        opacity: 0.85;
         animation: fall linear infinite;
+      }
+
+      .petal svg {
+        width: 100%;
+        height: 100%;
       }
 
       @keyframes fall {
@@ -40,7 +84,7 @@
           opacity: 0;
         }
         10% {
-          opacity: 0.8;
+          opacity: 0.85;
         }
         100% {
           transform: translateY(110vh) rotate(360deg);
@@ -49,22 +93,14 @@
       }
     </style>
   </head>
-  <body class="bg-slate-900">
+  <body class="spring bg-slate-900">
     <div id="root"></div>
 
     <script type="text/babel" data-type="module">
       import React, { useState, useEffect, useCallback } from "react";
       import ReactDOM from "react-dom/client";
 
-      const PETAL_COLORS = [
-        "#ff6b6b",
-        "#f9ca24",
-        "#e056fd",
-        "#48dbfb",
-        "#ff9ff3",
-        "#feca57",
-        "#7ed957",
-      ];
+      const PETAL_COLORS = ["#ffb7c5", "#ffcfe1", "#f3d9fa", "#fff0f6"];
       const CENTER_COLORS = ["#f9ca24", "#fffa65", "#333333"];
       const STEM_COLOR = "#6ab04c";
 
@@ -182,30 +218,38 @@
           setFlowers((prevFlowers) => [...prevFlowers, newFlower]);
         }, []);
 
-        // Generar pétalos flotando
-        const floatingPetals = Array.from({ length: 15 }).map((_, i) => {
+        // Generar pétalos flotando con SVG más detallado
+        const petalSVG = (color) => `
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2 C15 5, 20 10, 12 22 C4 10, 9 5, 12 2Z" fill="${color}"/>
+          </svg>
+        `;
+
+        const floatingPetals = Array.from({ length: 18 }).map((_, i) => {
           const left = `${random(0, 100)}%`;
-          const duration = `${random(8, 18)}s`;
+          const duration = `${random(10, 20)}s`;
           const delay = `${random(0, 10)}s`;
+          const color = PETAL_COLORS[Math.floor(random(0, PETAL_COLORS.length))];
           return (
             <div
               key={i}
               className="petal"
               style={{ left, animationDuration: duration, animationDelay: delay }}
+              dangerouslySetInnerHTML={{ __html: petalSVG(color) }}
             ></div>
           );
         });
 
         return (
-          <main className="relative min-h-screen w-full bg-slate-900 text-slate-100 flex flex-col items-center p-4 overflow-hidden">
+          <main className="relative min-h-screen w-full text-slate-100 flex flex-col items-center p-4 overflow-hidden">
             <header className="w-full max-w-4xl text-center py-8 z-20">
               <h1 className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-yellow-400 to-green-400">
                 Jardín Zen Digital
               </h1>
-              <p className="mt-4 text-lg text-slate-300">
-                Haz clic en 'Crecer' para ver nacer una flor casi tan linda como vos ♡
+              <p className="mt-4 text-lg text-slate-800 font-medium">
+                Haz clic en 'Crecer' para ver nacer una flor casi tan linda como tú.
               </p>
-              <p className="mt-6 text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-green-300 via-pink-300 to-yellow-300 animate-pulse">
+              <p className="mt-6 text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-green-600 via-pink-600 to-yellow-500 animate-pulse">
                 🌸 ¡Feliz Día de la Primavera, mi amor! 🌸
               </p>
             </header>
@@ -213,7 +257,7 @@
             <div className="flex-grow w-full flex justify-center my-8 z-20">
               <button
                 onClick={handleGrowClick}
-                className="flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white font-bold text-lg rounded-full px-10 py-4 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-100"
+                className="bg-pink-500 hover:bg-pink-600 text-white font-bold text-lg rounded-full px-8 py-3 shadow-lg shadow-pink-400/30 hover:shadow-pink-400/50 transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-100"
                 aria-label="Cultivar una nueva flor"
               >
                 Crecer
@@ -255,4 +299,4 @@
       );
     </script>
   </body>
-</html>                        
+</html>
