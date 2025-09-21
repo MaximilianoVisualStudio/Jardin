@@ -23,198 +23,74 @@
         background-color: #0f172a;
       }
 
-      /* Fondo primavera mejorado */
+      /* Fondo primavera */
       body.spring {
-        background: linear-gradient(135deg, #4ade80 0%, #34d399 30%, #87ceeb 100%);
+        background: linear-gradient(to top, #4ade80 5%, #87ceeb 100%);
         overflow: hidden;
-        position: relative;
       }
 
-      /* Sol mejorado - más grande, más brillante, con rayos */
+      /* Sol más luminoso */
       body.spring::before {
         content: "";
         position: absolute;
-        top: -100px;
+        top: -60px;
         left: 50%;
-        width: 300px;
-        height: 300px;
-        margin-left: -150px;
+        width: 220px;
+        height: 220px;
+        margin-left: -110px;
         border-radius: 50%;
-        background: radial-gradient(
-          circle at 40% 40%,
-          #fff8b0 0%,
-          #ffd43b 30%,
-          #ffcc00 60%,
-          #ff9f1c 100%
-        );
-        box-shadow: 
-          0 0 150px 60px rgba(255, 212, 59, 0.8),
-          0 0 200px 80px rgba(255, 204, 0, 0.5);
-        animation: sunGlow 4s ease-in-out infinite alternate;
+        background: radial-gradient(circle at center, #fff8b0 0%, #ffd43b 60%, #ff9f1c 100%);
+        box-shadow: 0 0 120px 50px #ffd43b88;
+        animation: sunGlow 6s ease-in-out infinite alternate;
         z-index: 0;
       }
 
-      /* Rayos del sol */
+      @keyframes sunGlow {
+        from {
+          transform: scale(1);
+        }
+        to {
+          transform: scale(1.1);
+        }
+      }
+
+      /* Pasto más vivo */
       body.spring::after {
         content: "";
-        position: absolute;
-        top: -100px;
-        left: 50%;
-        width: 300px;
-        height: 300px;
-        margin-left: -150px;
-        background: radial-gradient(
-          circle,
-          transparent 40%,
-          rgba(255, 212, 59, 0.3) 40%,
-          transparent 50%
-        );
-        background-size: 20px 20px;
-        animation: sunRays 8s linear infinite;
-        z-index: -1;
-        border-radius: 50%;
-      }
-
-      @keyframes sunGlow {
-        0% {
-          transform: scale(1) rotate(0deg);
-          box-shadow: 
-            0 0 150px 60px rgba(255, 212, 59, 0.8),
-            0 0 200px 80px rgba(255, 204, 0, 0.5);
-        }
-        100% {
-          transform: scale(1.05) rotate(5deg);
-          box-shadow: 
-            0 0 180px 70px rgba(255, 212, 59, 0.9),
-            0 0 250px 100px rgba(255, 204, 0, 0.6);
-        }
-      }
-
-      @keyframes sunRays {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-
-      /* Pasto más detallado */
-      .grass-container {
         position: absolute;
         bottom: 0;
         left: 0;
         width: 100%;
-        height: 180px;
+        height: 140px;
+        background: linear-gradient(to top, #22c55e 40%, #4ade80 80%, transparent);
         z-index: 1;
-        overflow: hidden;
       }
 
-      .grass-layer {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-          to top,
-          #166534 0%,
-          #15803d 20%,
-          #22c55e 50%,
-          #4ade80 80%,
-          transparent 100%
-        );
-        clip-path: url(#grass-clip);
-      }
-
-      /* Pétalos flotantes mejorados */
+      /* Pétalos flotantes */
       .petal {
         position: absolute;
         width: 24px;
         height: 24px;
-        opacity: 0;
+        opacity: 0.85;
         animation: fall linear infinite;
-        will-change: transform, opacity;
       }
 
       .petal svg {
         width: 100%;
         height: 100%;
-        filter: drop-shadow(0 0 2px rgba(0,0,0,0.1));
       }
 
       @keyframes fall {
         0% {
-          transform: translateY(-10vh) rotate(0deg) scale(0.5);
+          transform: translateY(-10vh) rotate(0deg);
           opacity: 0;
         }
         10% {
           opacity: 0.85;
-          transform: translateY(0vh) rotate(0deg) scale(1);
-        }
-        90% {
-          opacity: 0.85;
         }
         100% {
-          transform: translateY(110vh) rotate(360deg) scale(0.5);
+          transform: translateY(110vh) rotate(360deg);
           opacity: 0;
-        }
-      }
-
-      /* Botón mejorado */
-      .grow-button {
-        background: linear-gradient(135deg, #ec4899, #f43f5e);
-        border: none;
-        color: white;
-        font-weight: bold;
-        font-size: 1.125rem;
-        padding: 1rem 2rem;
-        border-radius: 9999px;
-        box-shadow: 
-          0 4px 15px rgba(236, 72, 153, 0.3),
-          0 0 0 1px rgba(255, 255, 255, 0.1);
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-        cursor: pointer;
-      }
-
-      .grow-button:hover {
-        transform: translateY(-2px) scale(1.05);
-        box-shadow: 
-          0 8px 25px rgba(236, 72, 153, 0.4),
-          0 0 0 1px rgba(255, 255, 255, 0.2);
-        background: linear-gradient(135deg, #f43f5e, #ec4899);
-      }
-
-      .grow-button:active {
-        transform: translateY(0) scale(0.98);
-        box-shadow: 
-          0 2px 10px rgba(236, 72, 153, 0.3),
-          0 0 0 1px rgba(255, 255, 255, 0.1);
-      }
-
-      .grow-button::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-        transition: left 0.5s;
-      }
-
-      .grow-button:hover::before {
-        left: 100%;
-      }
-
-      /* Animación de brillo para las flores */
-      @keyframes glowPulse {
-        0%, 100% {
-          filter: drop-shadow(0 0 8px var(--flower-color)) drop-shadow(0 0 20px var(--flower-color-glow));
-        }
-        50% {
-          filter: drop-shadow(0 0 12px var(--flower-color)) drop-shadow(0 0 30px var(--flower-color-glow));
         }
       }
     </style>
@@ -222,127 +98,169 @@
   <body class="spring bg-slate-900">
     <div id="root"></div>
 
-    <svg width="0" height="0">
-      <defs>
-        <clipPath id="grass-clip">
-          <path d="M0,180 
-                   C50,160 100,170 150,150 
-                   C200,130 250,160 300,140 
-                   C350,120 400,150 450,130 
-                   C500,110 550,140 600,120 
-                   C650,100 700,130 750,110 
-                   C800,90 850,120 900,100 
-                   C950,80 1000,110 1050,90 
-                   C1100,70 1150,100 1200,80 
-                   C1250,60 1300,90 1350,70 
-                   C1400,50 1450,80 1500,60 
-                   L1500,180 L0,180 Z" />
-        </clipPath>
-      </defs>
-    </svg>
-
     <script type="text/babel" data-type="module">
-      import React, { useState, useEffect, useCallback, useRef } from "react";
+      import React, { useState, useEffect, useCallback } from "react";
       import ReactDOM from "react-dom/client";
 
-      const PETAL_COLORS = ["#ffb7c5", "#ffcfe1", "#f3d9fa", "#fff0f6", "#f9a8d4"];
-      const CENTER_COLORS = ["#f9ca24", "#fffa65", "#ffeaa7", "#fdcb6e"];
-      const STEM_COLOR = "#16a34a";
+      const PETAL_COLORS = ["#ffb7c5", "#ffcfe1", "#f3d9fa", "#fff0f6"];
+      const CENTER_COLORS = ["#f9ca24", "#fffa65", "#333333"];
+      const STEM_COLOR = "#6ab04c";
 
       const random = (min, max) => Math.random() * (max - min) + min;
 
-      // Función mejorada para crear pétalos elípticos
       const createEllipsePetals = (numPetals, petalLength, petalWidth, centerSize) => {
         let petalsSvg = "";
         const angleStep = 360 / numPetals;
         for (let i = 0; i < numPetals; i++) {
           const angle = i * angleStep;
-          const rx = petalWidth / 2;
-          const ry = petalLength / 2;
-          const cy = -(ry + centerSize / 2);
-          
-          petalsSvg += `<ellipse cx="0" cy="${cy}" rx="${rx}" ry="${ry}" transform="rotate(${angle})" />`;
+          petalsSvg += `<ellipse cx="0" cy="${-(petalLength / 2 + centerSize / 2)}" rx="${
+            petalWidth / 2
+          }" ry="${petalLength / 2}" transform="rotate(${angle})"/>`;
         }
         return petalsSvg;
       };
 
-      // Función mejorada para crear pétalos puntiagudos
       const createPointedPetals = (numPetals, petalLength, petalWidth, centerSize) => {
         let petalsSvg = "";
         const angleStep = 360 / numPetals;
         for (let i = 0; i < numPetals; i++) {
           const angle = i * angleStep;
-          const startY = 0;
-          const endY = -petalLength;
-          const controlX = petalWidth / 1.5;
-          
-          petalsSvg += `<path d="M0,${startY} Q${controlX},${startY + (endY - startY) * 0.3} 0,${endY} Q${-controlX},${startY + (endY - startY) * 0.7} 0,${startY} Z" transform="rotate(${angle})" />`;
+          const startY = -(centerSize / 2);
+          const endY = -(centerSize / 2 + petalLength);
+          const controlX = petalWidth;
+          petalsSvg += `<path d="M0,${startY} Q${controlX},${startY + (endY - startY) / 2} 0,${endY} Q${-controlX},${startY + (endY - startY) / 2} 0,${startY} Z" transform="rotate(${angle})"/>`;
         }
         return petalsSvg;
       };
 
-      // Rosa completamente rediseñada
-      const createRose = (size) => {
-        const numLayers = 6;
-        const petals = [];
+      // Nueva flor amarilla detallada (reemplaza la rosa)
+      const createYellowFlower = (size) => {
+        const petalBaseColor = "#fcd34d"; // Amarillo dorado
+        const petalLightColor = "#fef08a"; // Amarillo claro
+        const centerColor = "#f59e0b"; // Naranja dorado
+        const centerDarkColor = "#d97706"; // Naranja oscuro
         
-        // Capas de pétalos con diferentes tamaños y opacidades
-        for (let i = 0; i < numLayers; i++) {
-          const baseRadius = size * 0.12;
-          const radius = baseRadius + i * (size * 0.08);
-          const opacity = 1 - i * 0.12;
-          
-          // Crear pétalos individuales para cada capa
-          const layerPetals = [];
-          const petalsPerLayer = 5 + Math.floor(i / 2);
-          const angleStep = 360 / petalsPerLayer;
-          
-          for (let j = 0; j < petalsPerLayer; j++) {
-            const angle = j * angleStep + i * 15; // Rotación adicional para variedad
-            const petalSize = radius * 0.8;
-            
-            layerPetals.push(
-              `<path d="M0,0 C${petalSize * 0.3},-${petalSize * 0.5} ${petalSize * 0.6},-${petalSize} 0,-${petalSize} C-${petalSize * 0.6},-${petalSize} -${petalSize * 0.3},-${petalSize * 0.5} 0,0 Z" 
-               transform="rotate(${angle})" 
-               fill="#e11d48" 
-               opacity="${opacity}" />`
-            );
-          }
-          
-          petals.push(`<g>${layerPetals.join('')}</g>`);
-        }
-
-        // Centro de la rosa
-        const centerSize = size * 0.12;
-        const centerPetals = [];
-        const centerPetalsCount = 8;
-        const centerAngleStep = 360 / centerPetalsCount;
+        // Capas de pétalos
+        const layers = [];
         
-        for (let i = 0; i < centerPetalsCount; i++) {
-          const angle = i * centerAngleStep;
-          centerPetals.push(
-            `<ellipse cx="0" cy="-${centerSize * 0.3}" rx="${centerSize * 0.3}" ry="${centerSize * 0.6}" 
-             transform="rotate(${angle})" fill="#9f1239" opacity="0.9" />`
-          );
+        // Capa 1: Pétalos grandes externos
+        const outerPetals = [];
+        const outerPetalsCount = 8;
+        const outerPetalLength = size * 0.35;
+        const outerPetalWidth = size * 0.25;
+        
+        for (let i = 0; i < outerPetalsCount; i++) {
+          const angle = i * (360 / outerPetalsCount);
+          const opacity = 0.9 - i * 0.02;
+          outerPetals.push(`
+            <path d="M0,0 
+                     C${outerPetalWidth * 0.7},-${outerPetalLength * 0.3} 
+                     ${outerPetalWidth},-${outerPetalLength * 0.7} 
+                     0,-${outerPetalLength} 
+                     C-${outerPetalWidth},-${outerPetalLength * 0.7} 
+                     -${outerPetalWidth * 0.7},-${outerPetalLength * 0.3} 
+                     0,0 Z" 
+                  transform="rotate(${angle})" 
+                  fill="${petalBaseColor}" 
+                  opacity="${opacity}" />
+          `);
         }
-
-        // Tallo mejorado
+        
+        layers.push(`<g>${outerPetals.join('')}</g>`);
+        
+        // Capa 2: Pétalos medianos
+        const middlePetals = [];
+        const middlePetalsCount = 8;
+        const middlePetalLength = size * 0.28;
+        const middlePetalWidth = size * 0.2;
+        
+        for (let i = 0; i < middlePetalsCount; i++) {
+          const angle = i * (360 / middlePetalsCount) + 22.5; // Desplazado
+          const opacity = 0.85 - i * 0.02;
+          middlePetals.push(`
+            <path d="M0,0 
+                     C${middlePetalWidth * 0.7},-${middlePetalLength * 0.3} 
+                     ${middlePetalWidth},-${middlePetalLength * 0.7} 
+                     0,-${middlePetalLength} 
+                     C-${middlePetalWidth},-${middlePetalLength * 0.7} 
+                     -${middlePetalWidth * 0.7},-${middlePetalLength * 0.3} 
+                     0,0 Z" 
+                  transform="rotate(${angle})" 
+                  fill="${petalLightColor}" 
+                  opacity="${opacity}" />
+          `);
+        }
+        
+        layers.push(`<g>${middlePetals.join('')}</g>`);
+        
+        // Capa 3: Pétalos pequeños internos
+        const innerPetals = [];
+        const innerPetalsCount = 8;
+        const innerPetalLength = size * 0.2;
+        const innerPetalWidth = size * 0.15;
+        
+        for (let i = 0; i < innerPetalsCount; i++) {
+          const angle = i * (360 / innerPetalsCount);
+          const opacity = 0.8 - i * 0.02;
+          innerPetals.push(`
+            <path d="M0,0 
+                     C${innerPetalWidth * 0.7},-${innerPetalLength * 0.3} 
+                     ${innerPetalWidth},-${innerPetalLength * 0.7} 
+                     0,-${innerPetalLength} 
+                     C-${innerPetalWidth},-${innerPetalLength * 0.7} 
+                     -${innerPetalWidth * 0.7},-${innerPetalLength * 0.3} 
+                     0,0 Z" 
+                  transform="rotate(${angle})" 
+                  fill="${petalBaseColor}" 
+                  opacity="${opacity}" />
+          `);
+        }
+        
+        layers.push(`<g>${innerPetals.join('')}</g>`);
+        
+        // Centro de la flor - estambres
+        const stamens = [];
+        const stamensCount = 12;
+        const stamenLength = size * 0.12;
+        
+        for (let i = 0; i < stamensCount; i++) {
+          const angle = i * (360 / stamensCount);
+          stamens.push(`
+            <line x1="0" y1="0" x2="0" y2="-${stamenLength}" 
+                  stroke="${centerDarkColor}" stroke-width="${size * 0.015}" 
+                  transform="rotate(${angle})" />
+            <circle cx="0" cy="-${stamenLength}" r="${size * 0.03}" 
+                    fill="${centerColor}" transform="rotate(${angle})" />
+          `);
+        }
+        
+        // Centro central
+        const center = `
+          <circle cx="0" cy="0" r="${size * 0.08}" fill="${centerDarkColor}" />
+          <circle cx="0" cy="0" r="${size * 0.04}" fill="${centerColor}" />
+        `;
+        
+        // Tallo
         const stemHeight = size * 0.8;
         const stemWidth = size * 0.04;
         
         // Hojas mejoradas
         const leaves = `
-          <path d="M0 ${stemHeight * 0.3} C -${size*0.3} ${stemHeight * 0.2}, -${size*0.4} ${stemHeight * 0.5}, 0 ${stemHeight * 0.6} C ${size*0.4} ${stemHeight * 0.5}, ${size*0.3} ${stemHeight * 0.2}, 0 ${stemHeight * 0.3} Z" 
-           fill="#16a34a" opacity="0.85" />
-          <path d="M0 ${stemHeight * 0.6} C -${size*0.25} ${stemHeight * 0.7}, -${size*0.35} ${stemHeight * 0.9}, 0 ${stemHeight * 0.95} C ${size*0.35} ${stemHeight * 0.9}, ${size*0.25} ${stemHeight * 0.7}, 0 ${stemHeight * 0.6} Z" 
-           fill="#16a34a" opacity="0.85" />
+          <path d="M0 ${stemHeight * 0.3} 
+                   C -${size*0.35} ${stemHeight * 0.2}, -${size*0.45} ${stemHeight * 0.5}, 0 ${stemHeight * 0.6} 
+                   C ${size*0.45} ${stemHeight * 0.5}, ${size*0.35} ${stemHeight * 0.2}, 0 ${stemHeight * 0.3} Z" 
+                fill="#16a34a" opacity="0.85" />
+          <path d="M0 ${stemHeight * 0.6} 
+                   C -${size*0.3} ${stemHeight * 0.7}, -${size*0.4} ${stemHeight * 0.9}, 0 ${stemHeight * 0.95} 
+                   C ${size*0.4} ${stemHeight * 0.9}, ${size*0.3} ${stemHeight * 0.7}, 0 ${stemHeight * 0.6} Z" 
+                fill="#16a34a" opacity="0.85" />
         `;
 
         return `
           <g transform="translate(${size/2}, ${size/2})">
-            ${petals.reverse().join("")}
-            <g>${centerPetals.join('')}</g>
-            <circle cx="0" cy="0" r="${centerSize * 0.4}" fill="#7c2d12" />
+            ${layers.reverse().join("")}
+            ${stamens.join("")}
+            ${center}
             <line x1="0" y1="0" x2="0" y2="${stemHeight}" stroke="#15803d" stroke-width="${stemWidth}" stroke-linecap="round" />
             ${leaves}
           </g>
@@ -360,29 +278,29 @@
         let flowerColor = "#e11d48";
         
         if (flowerCounter % 3 === 0) {
-          // Cada 3 flores → Rosa mejorada
-          svgContent = createRose(size);
-          flowerColor = "#e11d48";
+          // Cada 3 flores → Flor amarilla detallada
+          svgContent = createYellowFlower(size);
+          flowerColor = "#fcd34d";
         } else {
-          // Flores normales mejoradas
-          const petalColor = PETAL_COLORS[Math.floor(random(0, PETAL_COLORS.length)];
-          const centerColor = CENTER_COLORS[Math.floor(random(0, CENTER_COLORS.length)];
-          const numPetals = Math.floor(random(6, 14));
-          const petalLength = size * random(0.3, 0.45);
-          const petalWidth = size * random(0.15, 0.3);
-          const centerSize = size * random(0.12, 0.25);
-          const stemHeight = size * random(0.5, 0.7);
-          const stemSway = size * random(-0.2, 0.2);
-          const stemWidth = size * random(0.03, 0.05);
-          const petalColorOpacity = random(0.8, 1.0);
-          const selectedPetalFunc = petalFunctions[Math.floor(random(0, petalFunctions.length)];
+          // Flores normales
+          const petalColor = PETAL_COLORS[Math.floor(random(0, PETAL_COLORS.length))];
+          const centerColor = CENTER_COLORS[Math.floor(random(0, CENTER_COLORS.length))];
+          const numPetals = Math.floor(random(5, 12));
+          const petalLength = size * random(0.25, 0.4);
+          const petalWidth = size * random(0.1, 0.22);
+          const centerSize = size * random(0.1, 0.2);
+          const stemHeight = size * random(0.4, 0.6);
+          const stemSway = size * random(-0.15, 0.15);
+          const stemWidth = size * random(0.02, 0.04);
+          const petalColorOpacity = random(0.7, 1.0);
+          const selectedPetalFunc =
+            petalFunctions[Math.floor(random(0, petalFunctions.length))];
           const petalsSvg = selectedPetalFunc(numPetals, petalLength, petalWidth, centerSize);
 
           svgContent = `
             <g transform="translate(${size/2}, ${size/2 * 0.8})" style="transform-origin: center bottom;">
               <g fill="${petalColor}" opacity="${petalColorOpacity}">${petalsSvg}</g>
               <circle cx="0" cy="0" r="${centerSize / 2}" fill="${centerColor}" />
-              <circle cx="0" cy="0" r="${centerSize / 4}" fill="white" opacity="0.3" />
             </g>
             <path d="M${size/2} ${size} Q${size/2 + stemSway} ${size - stemHeight / 2} ${size/2} ${size - stemHeight}"
               stroke="${STEM_COLOR}" stroke-width="${stemWidth}" fill="none" stroke-linecap="round"/>
@@ -398,11 +316,10 @@
       const Flower = ({ flower }) => {
         const [isNew, setIsNew] = useState(true);
         const [isMounted, setIsMounted] = useState(false);
-        const flowerRef = useRef(null);
 
         useEffect(() => {
           const mountTimer = requestAnimationFrame(() => setIsMounted(true));
-          const glowTimer = setTimeout(() => setIsNew(false), 3000);
+          const glowTimer = setTimeout(() => setIsNew(false), 2500);
           return () => {
             cancelAnimationFrame(mountTimer);
             clearTimeout(glowTimer);
@@ -411,18 +328,17 @@
 
         const style = {
           color: flower.color,
-          transition: "opacity 1s ease-out, transform 1s ease-out",
+          transition: "opacity 1s ease-out, transform 1s ease-out, filter 1.5s ease-in-out",
           opacity: isMounted ? 1 : 0,
-          transform: isMounted ? "scale(1)" : "scale(0.3)",
-          willChange: "opacity, transform",
-          '--flower-color': flower.color,
-          '--flower-color-glow': `${flower.color}88`,
-          animation: isNew ? 'glowPulse 2s ease-in-out infinite' : 'none',
+          transform: isMounted ? "scale(1)" : "scale(0.5)",
+          filter: isNew
+            ? `drop-shadow(0 0 18px ${flower.color}) drop-shadow(0 0 40px ${flower.color}44)`
+            : `drop-shadow(0 0 8px ${flower.color}aa)`,
+          willChange: "opacity, transform, filter",
         };
 
         return (
           <div
-            ref={flowerRef}
             style={style}
             className="w-full h-full transform-gpu"
             dangerouslySetInnerHTML={{ __html: flower.svg }}
@@ -432,7 +348,6 @@
 
       const App = () => {
         const [flowers, setFlowers] = useState([]);
-        const [petalCount, setPetalCount] = useState(0);
 
         const handleGrowClick = useCallback(() => {
           const { svg, color, size } = generateFlowerData();
@@ -442,27 +357,23 @@
             color,
             size,
             position: {
-              top: `${random(5, 80)}%`,
-              left: `${random(5, 90)}%`,
+              top: `${random(0, 85)}%`,
+              left: `${random(0, 95)}%`,
             },
           };
           setFlowers((prevFlowers) => [...prevFlowers, newFlower]);
-          
-          // Añadir pétalos adicionales cuando se crea una flor
-          setPetalCount(prev => prev + 1);
         }, []);
 
         const petalSVG = (color) => `
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2 C16 4, 22 12, 12 22 C2 12, 8 4, 12 2Z" fill="${color}" />
+            <path d="M12 2 C15 5, 20 10, 12 22 C4 10, 9 5, 12 2Z" fill="${color}"/>
           </svg>
         `;
 
-        // Generar pétalos flotantes
-        const floatingPetals = Array.from({ length: 25 + petalCount }).map((_, i) => {
+        const floatingPetals = Array.from({ length: 18 }).map((_, i) => {
           const left = `${random(0, 100)}%`;
-          const duration = `${random(12, 25)}s`;
-          const delay = `${random(0, 15)}s`;
+          const duration = `${random(10, 20)}s`;
+          const delay = `${random(0, 10)}s`;
           const color = PETAL_COLORS[Math.floor(random(0, PETAL_COLORS.length))];
           return (
             <div
@@ -477,13 +388,13 @@
         return (
           <main className="relative min-h-screen w-full text-slate-100 flex flex-col items-center p-4 overflow-hidden">
             <header className="w-full max-w-4xl text-center py-8 z-20">
-              <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-yellow-400 to-green-400 drop-shadow-lg">
+              <h1 className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-yellow-400 to-green-400">
                 Jardín Zen Digital
               </h1>
-              <p className="mt-4 text-lg md:text-xl text-slate-800 font-medium">
+              <p className="mt-4 text-lg text-slate-800 font-medium">
                 Haz clic en 'Crecer' para ver nacer una flor casi tan linda como vos.
               </p>
-              <p className="mt-6 text-xl md:text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-green-600 via-pink-600 to-yellow-500 animate-pulse">
+              <p className="mt-6 text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-green-600 via-pink-600 to-yellow-500 animate-pulse">
                 🌸 ¡Feliz Día de la Primavera, mi amor! 🌸
               </p>
             </header>
@@ -491,7 +402,7 @@
             <div className="flex-grow w-full flex justify-center my-8 z-20">
               <button
                 onClick={handleGrowClick}
-                className="grow-button"
+                className="bg-pink-500 hover:bg-pink-600 text-white font-bold text-lg rounded-full px-8 py-3 shadow-lg shadow-pink-400/30 hover:shadow-pink-400/50 transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-100"
                 aria-label="Cultivar una nueva flor"
               >
                 Crecer
@@ -509,7 +420,6 @@
                     left: flower.position.left,
                     width: `${flower.size}px`,
                     height: `${flower.size}px`,
-                    zIndex: 10,
                   }}
                 >
                   <Flower flower={flower} />
@@ -520,11 +430,6 @@
             {/* Pétalos flotando */}
             <div aria-hidden="true" className="absolute inset-0 w-full h-full z-0 overflow-hidden">
               {floatingPetals}
-            </div>
-
-            {/* Capa de pasto mejorada */}
-            <div className="grass-container">
-              <div className="grass-layer"></div>
             </div>
           </main>
         );
